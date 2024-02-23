@@ -1,0 +1,25 @@
+.status-anzeige {
+  position: absolute;
+  top: 60px;
+  left: 10px;
+}
+.header-div {
+  width: 100%;
+  text-align: center;
+}
+.selcter-race-class-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 4fr 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+.race-class-lister {
+  grid-area: 1 / 1 / 2 / 2;
+}
+.race-class-description {
+  grid-area: 1 / 2 / 2 / 3;
+}
+.option-row {
+  grid-area: 2 / 1 / 3 / 3;
+}
