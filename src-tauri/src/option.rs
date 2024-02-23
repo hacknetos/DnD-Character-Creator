@@ -11,7 +11,7 @@ struct Options {
 const OPTION_PATH: &str = "C:\\DnDCharacterGen\\Option.JSON";
 
 pub fn create_Options() {
-    let mut file = File::create(OPTION_PATH);
+    let file = File::create(OPTION_PATH);
     if file.is_err() {
         std::println!("{}", file.unwrap_err());
     } else {
