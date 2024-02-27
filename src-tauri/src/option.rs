@@ -31,17 +31,21 @@ pub fn create_Options() {
 pub fn exists_Options() -> bool {
     if cfg!(windows) {
         if !Path::new(OPTION_PATH_WIN).exists() && !Path::new(OPTION_PATH_WIN).is_file() {
+            println!("Option WIN Parh Dont exist");
             return false;
         }
     } else if cfg!(unix) {
+        println!("Option unix Parh Dont exist");
         if !Path::new(OPTION_PATH_UNI).exists() && !Path::new(OPTION_PATH_UNI).is_file() {
             return false;
         }
     } else if cfg!(target_os = "macos") {
+        println!("Option MAC Parh Dont exist");
         if !Path::new(OPTION_PATH_MAC).exists() && !Path::new(OPTION_PATH_MAC).is_file() {
             return false;
         }
     }
+    println!("Path exist");
     return true;
 }
 
@@ -50,11 +54,11 @@ pub fn read_Options() -> Result<Options, Box<dyn Error>> {
         create_Options();
     }
 
-    let mut file = File::create(OPTION_PATH_WIN)?;
+    let mut file = File::open(OPTION_PATH_WIN)?;
     if cfg!(unix) {
-        file = File::create(OPTION_PATH_UNI)?;
+        file = File::open(OPTION_PATH_UNI)?;
     } else if cfg!(target_os = "macos") {
-        file = File::create(OPTION_PATH_MAC)?;
+        file = File::open(OPTION_PATH_MAC)?;
     }
     let reader = BufReader::new(file);
     let json = serde_json::from_reader(reader)?;

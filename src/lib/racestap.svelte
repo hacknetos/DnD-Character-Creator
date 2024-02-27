@@ -3,6 +3,7 @@
   import { invoke } from "@tauri-apps/api/tauri";
   import { appWindow, WebviewWindow } from "@tauri-apps/api/window";
 
+  //TODO Safe all Theat in a Store
   var Stap = "stap 1";
   let all_known_races = [];
   let selectet_race = "";
@@ -56,8 +57,8 @@
           </div>
           <div class="race-size">
             Height :
-            {all_known_races[selcetet_index].standard_size.min} -
-            {all_known_races[selcetet_index].standard_size.max}
+            {all_known_races[selcetet_index].standard_size.min}cm -
+            {all_known_races[selcetet_index].standard_size.max}cm
             {#if all_known_races[selcetet_index].standard_size.description != ""}
               ({all_known_races[selcetet_index].standard_size.description})
             {/if}
@@ -103,38 +104,104 @@
                   </div>
                 {/each}
               </details>
+              <br />
             {/if}
           </div>
           <div class="race-under-species">
             {#if all_known_races[selcetet_index].under_species != null}
               <details>
                 <summary>under species:</summary>
-
-                {#each all_known_races[selcetet_index].under_species as urace}
-                  <details class="underrace-detail">
-                    <summary>{urace.name}</summary>
-                    <h4>description:</h4>
-                    <p>{urace.description}</p>
-                    {#if urace.under_race_bonus != null}
-                      <details class="under-race-bon">
-                        <summary>under race Bonus</summary>
-                        <ul>
-                          {#each urace.under_race_bonus as uracebon}
-                            <li>{uracebon.name} : {uracebon.bonus}</li>
-                          {/each}
-                        </ul>
+                <ul class="under-race-ul">
+                  {#each all_known_races[selcetet_index].under_species as urace}
+                    <li class="under-race-li">
+                      <details class="underrace-detail">
+                        <summary>{urace.name}</summary>
+                        <h4>description:</h4>
+                        <p>{urace.description}</p>
+                        {#if urace.under_race_size != null}
+                          {urace.under_race_size.min}cm -
+                          {urace.under_race_size.max}cm
+                          {#if urace.under_race_size.description != ""}
+                            ({urace.under_race_size.description})
+                          {/if}
+                        {/if}
+                        <br />
+                        {#if urace.under_race_age != null}
+                          {urace.under_race_age[0]} years -
+                          {urace.under_race_age[1]} years
+                        {/if}
+                        {#if urace.under_race_bonus != null}
+                          <ul class="under-race-ul">
+                            <li class="under-race-li">
+                              <details class="under-race-bon">
+                                <summary>under race Bonus</summary>
+                                <ul class="under-race-ul">
+                                  {#each urace.under_race_bonus as uracebon}
+                                    <li class="under-race-li">
+                                      {uracebon.name} : {uracebon.bonus}
+                                    </li>
+                                  {/each}
+                                </ul>
+                              </details>
+                            </li>
+                          </ul>
+                          <br />
+                        {/if}
+                        {#if urace.under_race_resistance != null}
+                          <ul class="under-race-ul">
+                            <li class="under-race-li">
+                              <details>
+                                <summary>Extra Resistance</summary>
+                                <ul class="under-race-ul">
+                                  {#each urace.under_race_resistance as uracereses}
+                                    <li class="under-race-li">{uracereses}</li>
+                                  {/each}
+                                </ul>
+                              </details>
+                            </li>
+                          </ul>
+                          <br />
+                        {/if}
+                        {#if urace.under_race_lang != null}
+                          <ul class="under-race-ul">
+                            <li class="under-race-li">
+                              <details>
+                                <summary>Language</summary>
+                                <ul class="under-race-ul">
+                                  {#each urace.under_race_lang as uracelang}
+                                    <li class="under-race-li">{uracelang}</li>
+                                  {/each}
+                                </ul>
+                              </details>
+                            </li>
+                          </ul>
+                        {/if}
+                        {#if urace.under_race_skills != null}
+                          <ul class="under-race-ul">
+                            <li class="under-race-li">
+                              <details class="underrace-skills-wrapper">
+                                <summary>Extra Skills</summary>
+                                <ul class="under-race-ul">
+                                  {#each urace.under_race_skills as uraceSkill}
+                                    <li class="under-race-li">
+                                      <details class="underrace-skills">
+                                        <summary>{uraceSkill.name}</summary>
+                                        <p>{uraceSkill.description}</p>
+                                      </details>
+                                    </li>
+                                    <br />
+                                  {/each}
+                                </ul>
+                              </details>
+                            </li>
+                          </ul>
+                          <br />
+                        {/if}
                       </details>
-                    {/if}
-                    {#if urace.under_race_skills != null}
-                      {#each urace.under_race_skills as uraceSkill}
-                        <details class="underrace-skills">
-                          <summary>{uraceSkill.name}</summary>
-                          <p>{uraceSkill.description}</p>
-                        </details>
-                      {/each}
-                    {/if}
-                  </details>
-                {/each}
+                    </li>
+                    <br />
+                  {/each}
+                </ul>
               </details>
             {/if}
           </div>
