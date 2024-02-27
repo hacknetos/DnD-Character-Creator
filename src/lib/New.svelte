@@ -9,7 +9,7 @@
 
 <!-- TODO Speicher Vortschrit Irgendwo-->
 <!-- TODO Speicher Character Daten Irgendwo-->
-<!-- TODO Vüge Restliche Schriete ein-->
+<!-- TODO Vüge Restliche Scheiße ein-->
 <!-- TODO Alles Schönmachen  -->
 <!-- TODO Testen  -->
 

@@ -20,7 +20,7 @@
     <h1>Choose a race</h1>
   </div>
   <div class="selcter-race-class-grid">
-    <!--TODO Stype and List all Persrks of The Races on Screen   -->
+    <!--TODO Stype this shitty Page -->
     <div class="race-class-lister">
       <ul class="RaceList">
         {#each all_known_races as race, i}
