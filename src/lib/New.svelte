@@ -7,6 +7,12 @@
   var Stap = "stap 1";
 </script>
 
+<!-- TODO Speicher Vortschrit Irgendwo-->
+<!-- TODO Speicher Character Daten Irgendwo-->
+<!-- TODO Vüge Restliche Schriete ein-->
+<!-- TODO Alles Schönmachen  -->
+<!-- TODO Testen  -->
+
 <div class="status-anzeige">
   <p class="stap">{Stap}</p>
 </div>

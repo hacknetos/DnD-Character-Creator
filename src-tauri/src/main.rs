@@ -6,7 +6,10 @@ use tauri::{ Manager, Window };
 use serde::Serialize;
 mod race;
 mod option;
-
+// TODO CLass Datei erstellen
+// TODO Iteam Datei erstellen
+// TODO Fertigen Charackter Speichen Und Berechenen
+// TODO In Das D&D PDF Speichern
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 fn greet(name: &str) -> String {
