@@ -8,10 +8,17 @@ struct Options {
     class_file_path: String,
     character_files_dir: String,
 }
-const OPTION_PATH: &str = "C:\\DnDCharacterGen\\Option.JSON";
-
+//INFO All Posebile Static Paths on The Main OS es
+const OPTION_PATH_WIN: &str = "C:\\DnDCharacterGen\\Option.JSON";
+const OPTION_PATH_UNI: &str = "/home/$USER/Option.JSON";
+const OPTION_PATH_MAC: &str = ""; //FIXME I Dont Fucking Know how the Paths hear lol
 pub fn create_Options() {
-    let file = File::create(OPTION_PATH);
+    let mut file = File::create(OPTION_PATH_WIN);
+    if cfg!(unix) {
+        file = File::create(OPTION_PATH_UNI);
+    } else if cfg!(target_os = "macos") {
+        file = File::create(OPTION_PATH_MAC);
+    }
     if file.is_err() {
         std::println!("{}", file.unwrap_err());
     } else {
@@ -22,11 +29,20 @@ pub fn create_Options() {
 }
 
 pub fn exists_Options() -> bool {
-    if !Path::new(OPTION_PATH).exists() && !Path::new(OPTION_PATH).is_file() {
-        return false;
-    } else {
-        return true;
+    if cfg!(windows) {
+        if !Path::new(OPTION_PATH_WIN).exists() && !Path::new(OPTION_PATH_WIN).is_file() {
+            return false;
+        }
+    } else if cfg!(unix) {
+        if !Path::new(OPTION_PATH_UNI).exists() && !Path::new(OPTION_PATH_UNI).is_file() {
+            return false;
+        }
+    } else if cfg!(target_os = "macos") {
+        if !Path::new(OPTION_PATH_MAC).exists() && !Path::new(OPTION_PATH_MAC).is_file() {
+            return false;
+        }
     }
+    return true;
 }
 
 pub fn read_Options() -> Result<Options, Box<dyn Error>> {
@@ -34,7 +50,12 @@ pub fn read_Options() -> Result<Options, Box<dyn Error>> {
         create_Options();
     }
 
-    let file = File::open(OPTION_PATH)?;
+    let mut file = File::create(OPTION_PATH_WIN)?;
+    if cfg!(unix) {
+        file = File::create(OPTION_PATH_UNI)?;
+    } else if cfg!(target_os = "macos") {
+        file = File::create(OPTION_PATH_MAC)?;
+    }
     let reader = BufReader::new(file);
     let json = serde_json::from_reader(reader)?;
     Ok(json)

@@ -6,16 +6,18 @@ use tauri::{ Manager, Window };
 use serde::Serialize;
 mod race;
 mod option;
-// TODO CLass Datei erstellen
-// TODO Iteam Datei erstellen
-// TODO Fertigen Charackter Speichen Und Berechenen
-// TODO In Das D&D PDF Speichern
+//TODO CLass Datei erstellen
+//TODO Iteam Datei erstellen
+//TODO Fertigen Charackter Speichen Und Berechenen
+//TODO In Das D&D PDF Speichern
+
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
 }
 
+//INFO Here we have the reason why the Race Struct's are all Serialize because Tauri only wants to send serialized things to the frontend
 #[tauri::command]
 async fn get_race() -> Result<Vec<race::Race>, String> {
     let opt_path = option::get_race_file_path();

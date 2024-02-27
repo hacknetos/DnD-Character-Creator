@@ -20,6 +20,7 @@
 {#if Stap == "stap 0"}
   Beschreibung was kommt
 {:else if Stap == "stap 1"}
+  <!-- TODO  Choos your Character Race-->
   <Race />
 {:else if Stap == "stap 2"}{:else if Stap == "stap 3"}
 

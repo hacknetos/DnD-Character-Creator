@@ -1,11 +1,13 @@
 use std::{ fs::File, io::{ BufReader, Read }, path::Path };
 use serde::{ Deserialize, Serialize };
 
+//INFO If you're wondering why all the struct's are Serialize and Deserialize at the same time, Serde and Taurie will explain in more detail in the individual sections
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Race_Bonus {
     pub name: String,
     pub bonus: u8,
 }
+
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Under_Species {
     pub name: String,
@@ -62,6 +64,7 @@ pub fn Read_RaceFile(race_file_path: &str) -> Result<RaceWrapper, String> {
             Err("An error has occurred while reading".to_string())
         } else {
             let reader = BufReader::new(file.unwrap());
+            //INFO Here we have the reason why the race struct's are all deserialized because serde_json can only write to deserialized struct's from a JSON file
             let json = serde_json::from_reader(reader);
             if json.is_err() {
                 println!("{:?}", json.unwrap_err());
@@ -72,6 +75,8 @@ pub fn Read_RaceFile(race_file_path: &str) -> Result<RaceWrapper, String> {
         }
     }
 }
+
+//INFO Return a RaceWrapper Struct theat contains a Vec of all Races in the JSON File
 pub fn get_all_known_Races(race_file_path: &str) -> Result<RaceWrapper, String> {
     let all_known_Races = Read_RaceFile(race_file_path);
     if all_known_Races.is_err() {
